@@ -106,7 +106,7 @@ router.post("/:id/comments", async (req, res) => {
 				...req.body,
 				post_id: req.params.id
 			});
-			const newComment = await postsDB.findCommentById(comment.id);
+			const newComment = await postsDB.findCommentById(comment.id).first();
 			if (post) {
 				res.status(201).json(newComment);
 			} else {
@@ -127,7 +127,7 @@ router.post("/:id/comments", async (req, res) => {
 // DELETE
 router.delete("/:id", async (req, res) => {
 	try {
-		const post = await postsDB.findById(req.params.id);
+		const post = await postsDB.findById(req.params.id).first();
 		const count = await postsDB.remove(req.params.id);
 		if (count > 0) {
 			res.status(200).json(post);
@@ -154,7 +154,7 @@ router.put("/:id", async (req, res) => {
 	} else {
 		try {
 			const post = await postsDB.update(req.params.id, req.body);
-			const updatedPost = await postsDB.findById(req.params.id);
+			const updatedPost = await postsDB.findById(req.params.id).first();
 			if (post) {
 				res.status(200).json(updatedPost);
 			} else {
