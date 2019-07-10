@@ -90,7 +90,7 @@ router.post("/", async (req, res) => {
 
 function isValidComment(comment) {
 	const { text } = comment;
-	return text;
+	return !!text;
 }
 
 router.post("/:id/comments", async (req, res) => {
