@@ -23,7 +23,7 @@ router.get("/", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
 	try {
-		const post = await postsDB.findById(req.params.id);
+		const post = await postsDB.findById(req.params.id).first();
 		if (post) {
 			res.status(200).json(post);
 		} else {
@@ -76,8 +76,9 @@ router.post("/", async (req, res) => {
 	} else {
 		try {
 			const post = await postsDB.insert(req.body);
-			const newPost = await postsDB.findById(post.id);
-			res.status(201).json(newPost);
+			// const newPost = await postsDB.findById(post.id);
+			// res.status(201).json(newPost);
+			res.status(201).json(post);
 		} catch (error) {
 			// log error to database
 			console.log(error);
